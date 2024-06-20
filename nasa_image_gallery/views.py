@@ -10,9 +10,13 @@ from django.contrib.auth import logout
 def index_page(request):
     return render(request, 'index.html')
 
+
+def login(request):
+    return render(request, 'login.html')
+
 # auxiliar: retorna 2 listados -> uno de las imágenes de la API y otro de los favoritos del usuario.
-def getAllImagesAndFavouriteList(request):
-    images = []
+def getAllImagesAndFavouriteList(request=None):
+    images = services_nasa_image_gallery.getAllImages(request)
     favourite_list = []
 
     return images, favourite_list
@@ -28,11 +32,14 @@ def home(request):
 
 # función utilizada en el buscador.
 def search(request):
-    images, favourite_list = getAllImagesAndFavouriteList(request)
     search_msg = request.POST.get('query', '')
+    
+    if search_msg == "":
+        search_msg = None
 
-    # si el usuario no ingresó texto alguno, debe refrescar la página; caso contrario, debe filtrar aquellas imágenes que posean el texto de búsqueda.
-    pass
+    images, favourite_list = getAllImagesAndFavouriteList(search_msg)
+
+    return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list} )
 
 
 # las siguientes funciones se utilizan para implementar la sección de favoritos: traer los favoritos de un usuario, guardarlos, eliminarlos y desloguearse de la app.
