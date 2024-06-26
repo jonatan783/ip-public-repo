@@ -1,42 +1,51 @@
 {% extends 'header.html' %} {% block content %}
 <main>
-    <h1 class="text-center">Galería de Imágenes de la NASA</h1>
+    <h1 class="text-center text-welcome">Galería de Imágenes de la NASA</h1>
     <div class="d-flex justify-content-center" style="margin-bottom: 1%">
         <!-- Buscador del sitio -->
-        <form class="d-flex" action="{% url 'buscar' %}" method="POST">
+        <form class="d-flex mb-5" action="{% url 'buscar' %}" method="POST">
             {% csrf_token %}
-            <input class="form-control me-2" type="search" name="query" placeholder="Escribí una palabra" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <input class="color-input form-control me-2 bg-dark" type="search" name="query" placeholder="Escribí una palabra"
+                aria-label="Search" style="color: #fff;">
+            <button class="btn btn-outline-primary bg-dark" type="submit">Buscar</button>
         </form>
     </div>
 
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 px-3 pb-5">
         {% for imagen in images %}
         <div class="col">
-            <div class="card">
-                <img src="{{ imagen.image_url}}" class="card-img-top" alt="imagen">
-                <div class="card-body">
-                    <h5 class="card-title">{{ imagen.title}}</h5>
-                    <p class="card-text">{{ imagen.description}}</p>
-                </div>
-                {% if request.user.is_authenticated %}
-                <div class="card-footer text-center">
-                    <form method="post" action="{% url 'agregar-favorito' %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="title" value="{{ imagen.title }}">
-                        <input type="hidden" name="description" value="{{ imagen.description }}">
-                        <input type="hidden" name="image_url" value="{{ imagen.image_url }}">
-                        <input type="hidden" name="date" value="{{ imagen.date }}">
-                        {% if imagen in favourite_list %}
-                        <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white" disabled>✔️ Ya está añadida a favoritos</button>
-                        {% else %}
-                        <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white">❤️ Añadir a favoritos</button>
-                        {% endif %}
+            <div class="nasa-card-container">
+                <div class="card nasa-card">
+                    <div class="content-img">
+                        <img src="{{ imagen.image_url}}" class="card-img-top" alt="imagen">
+                    </div>
+                    <div class="card-body-custom">
+                        <h5 class="card-title">{{ imagen.title}}</h5>
+                        <p class="card-text pb-2">{{ imagen.description}}</p>
 
-                    </form>
+                        {% if request.user.is_authenticated %}
+                        <div class="card-footer text-center">
+                            <form method="post" action="{% url 'agregar-favorito' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="title" value="{{ imagen.title }}">
+                                <input type="hidden" name="description" value="{{ imagen.description }}">
+                                <input type="hidden" name="image_url" value="{{ imagen.image_url }}">
+                                <input type="hidden" name="date" value="{{ imagen.date }}">
+                                {% if imagen in favourite_list %}
+                                <button type="submit" class="btn-sm float-left btn btn-outline-primary bg-dark" style="color:white"
+                                    disabled>✔️ Ya está añadida a favoritos</button>
+                                {% else %}
+                                <button type="submit" class="btn-sm float-left btn btn-outline-primary bg-dark">❤️
+                                    Añadir a favoritos</button>
+                                {% endif %}
+
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+
                 </div>
-                {% endif %}
             </div>
         </div>
         {% endfor %}

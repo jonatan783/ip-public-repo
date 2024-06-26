@@ -1,7 +1,74 @@
 body {
-    color: #566787;
+    color: #21478d;
     background: #f5f5f5;
     font-family: 'Roboto', sans-serif;
+    background-image: url("https://fondosmil.co/fondo/97884.jpg");
+}
+
+.text-welcome{
+    color:#f5f5f5;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 1);
+}
+
+.color-input{
+    color : #fff !important;
+}
+
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    min-width: 100vw;
+}
+
+.nasa-card-container{
+    border-radius: 20px;
+    box-shadow: 1px 1px 7px 2px #d3d6d999;
+    transition: box-shadow 0.5s ease;
+}
+.nasa-card-container:hover img{
+    transform: scale(1.1);
+}
+.nasa-card-container:hover{
+    box-shadow: 2px 2px 10px 3px #d3d6d999;
+}
+
+.nasa-card {
+    border-radius: 20px;
+    overflow: hidden;
+    height: 460px;
+    border: 0 !important;
+    background-color: #04070d;
+    color: #ddd;
+}
+
+.card-body-custom{
+    padding: 1rem 1rem;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 210px;
+}
+
+
+.nasa-card .content-img {
+    min-height: 250px;
+    max-height: 250px;
+    overflow: hidden;
+}
+
+.nasa-card img{
+    transition: transform 0.5s ease;
+    min-height: 250px;
+    max-height: 250px;
+    overflow: hidden;
+}
+
+.nasa-card p{
+height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .table-responsive {
@@ -10,9 +77,11 @@ body {
 
 .table-wrapper {
     min-width: 1000px;
-    background: #fff;
+    background: rgb(255 255 255 / 70%);
     padding: 20px;
+    margin-bottom: 60px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    border-radius: 10px;
 }
 
 .table-title {
@@ -57,7 +126,7 @@ table.table tr td {
 }
 
 table.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #fcfcfc;
+    background-color: rgb(255 255 255 / 50%);
 }
 
 table.table-striped.table-hover tbody tr:hover {
@@ -90,7 +159,28 @@ table.table td a.edit {
 
 table.table td a.delete {
     color: #E34724;
+    background-color: red;
+    width: 100%;
+    height: 100%;
 }
+
+table td:nth-child(2) img {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    min-width: 200px;
+    min-height: 200px;
+    border-radius:5px;
+}
+
+table td:nth-child(5) {
+    width: 150px;
+}
+table td:nth-child(6) {
+    max-width: 100px;
+   text-align: center;
+}
+
 
 table.table td i {
     font-size: 19px;
@@ -140,3 +230,5 @@ table.table td i {
     margin-top: 6px;
     font-size: 95%;
 }
+
+
