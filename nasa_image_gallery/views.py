@@ -53,7 +53,7 @@ def getAllFavouritesByUser(request):
 def saveFavourite(request):
     print(request)
     services_nasa_image_gallery.saveFavourite(request)
-    return redirect("/home")
+    return redirect("/buscar")
 
 
 @login_required
