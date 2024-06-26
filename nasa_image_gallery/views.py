@@ -12,12 +12,12 @@ def index_page(request):
 
 
 def login(request):
-    return render(request, 'login.html')
+    return render(request, 'index.html')
 
 # auxiliar: retorna 2 listados -> uno de las imágenes de la API y otro de los favoritos del usuario.
-def getAllImagesAndFavouriteList(request=None):
-    images = services_nasa_image_gallery.getAllImages(request)
-    favourite_list = []
+def getAllImagesAndFavouriteList(search_msg, request):
+    images = services_nasa_image_gallery.getAllImages(search_msg)
+    favourite_list = services_nasa_image_gallery.getAllFavouritesByUser(request)
 
     return images, favourite_list
 
@@ -37,7 +37,7 @@ def search(request):
     if search_msg == "":
         search_msg = None
 
-    images, favourite_list = getAllImagesAndFavouriteList(search_msg)
+    images, favourite_list = getAllImagesAndFavouriteList(search_msg,request)
 
     return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list} )
 
@@ -51,7 +51,9 @@ def getAllFavouritesByUser(request):
 
 @login_required
 def saveFavourite(request):
-    pass
+    print(request)
+    services_nasa_image_gallery.saveFavourite(request)
+    return redirect("/home")
 
 
 @login_required
@@ -61,4 +63,5 @@ def deleteFavourite(request):
 
 @login_required
 def exit(request):
-    pass
+    logout(request)
+    return redirect('/')
